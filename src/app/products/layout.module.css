@@ -1,0 +1,15 @@
+.nav {
+	margin-top: 15px;
+	padding: 15px;
+	border: 1px solid salmon;
+}
+
+.nav a {
+	text-decoration: none;
+	color: black;
+	padding: 0 8px;
+}
+
+.product {
+	padding: 16px;
+}

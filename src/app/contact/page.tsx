@@ -1,3 +1,3 @@
 export default function page() {
-	return <div>콘텍</div>;
+	return <h1>Contact Us</h1>;
 }
