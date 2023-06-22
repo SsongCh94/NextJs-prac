@@ -17,11 +17,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 				<header className={styles.header}>
 					<h1>Demo Note</h1>
 					<nav className={styles.nav}>
-						<h1>
-							<Link href='/'>Home</Link>
-						</h1>
+						<Link href='/'>Home</Link>
 						<Link href='/contact'>Contact</Link>
 						<Link href='/about'>About</Link>
+						<Link href='/products'>Products</Link>
 					</nav>
 				</header>
 				{children}
