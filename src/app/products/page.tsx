@@ -1,19 +1,19 @@
 import Link from 'next/link';
 import styles from './page.module.css';
+import { getProducts } from '@/service/products';
 
-const productList = ['shirt', 'pants', 'skirt', 'shoes'];
-
-export default function Products() {
+export default async function Products() {
+	const products = await getProducts();
 	return (
 		<>
 			<h1>제품 소개 페이지</h1>
 			<ul>
-				{productList.map((item, idx) => {
+				{products.map((product, idx) => {
 					return (
 						<li
 							key={idx}
 							className={styles.listLink}>
-							<Link href={`/products/${item}`}> {item}</Link>
+							<Link href={`/products/${product.id}`}> {product.name}</Link>
 						</li>
 					);
 				})}

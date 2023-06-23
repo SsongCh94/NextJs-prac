@@ -1,4 +1,5 @@
-import Link from 'next/link';
+import NotFoundPage from '@/app/not-found';
+import { getProduct, getProducts } from '@/service/products';
 
 type Props = {
 	params: {
@@ -6,22 +7,30 @@ type Props = {
 	};
 };
 
-export function generateMetadata({ params }: Props) {
+// metadata title을 정해주는 함수, description은 없기 때문에 상위 layout의 description을 출력한다.
+// 함정은.. generateStaticParams 함수에서 slug를 product의 id로 지정해줬기 때문에, '제품의 이름 : {제품이름}' 이 아닌 '제품의 이름 : {제품의 id}' 가 나온다.
+export function generateMetadata({ params: { slug } }: Props) {
 	return {
-		title: `제품의 이름: ${params.slug}`,
+		title: `제품의 이름: ${slug}`,
 	};
 }
 
-export default function Pants({ params }: Props) {
-	if (params.slug === 'nothing') {
-		return <h1>없어</h1>;
+// async 함수로, promise 객체인 getProduct를 받고, product가 없을 시 notFound페이지, 있을 시 product의 name 설명 페이지를 출력한다.
+export default async function ProductPage({ params: { slug } }: Props) {
+	const product = await getProduct(slug);
+
+	if (!product) {
+		return NotFoundPage();
 	}
-	return <h1>{params.slug} 제품 설명 페이지</h1>;
+
+	return <h1>{product.name} 제품 설명 페이지</h1>;
 }
 
-export function generateStaticParams() {
-	const products = ['pants', 'skirt'];
+// SSG 를 위한 코드. async 비동기함수이고, getProducts promise 객체를 await로 받고, map 메서드로 product의 id를 추출하여 slug에 대입해준다.
+// 페이지를 프리렌더링 하기 위한 함수이다.
+export async function generateStaticParams() {
+	const products = await getProducts();
 	return products.map((product) => ({
-		slug: product,
+		slug: product.id,
 	}));
 }
