@@ -1,7 +1,6 @@
 import NotFoundPage from '@/app/not-found';
 import { getProduct, getProducts } from '@/service/products';
-
-export const revalidate = 10;
+import Image, { StaticImageData } from 'next/image';
 
 type Props = {
 	params: {
@@ -25,7 +24,17 @@ export default async function ProductPage({ params: { slug } }: Props) {
 		return NotFoundPage();
 	}
 
-	return <h1>{product.name} 제품 설명 페이지</h1>;
+	return (
+		<>
+			<h1>{product?.name} 제품 설명 페이지</h1>
+			<Image
+				src={`/images/${product?.image}`}
+				alt={product?.name}
+				width={300}
+				height={300}
+			/>
+		</>
+	);
 }
 
 // SSG 를 위한 코드. async 비동기함수이고, getProducts promise 객체를 await로 받고, map 메서드로 product의 id를 추출하여 slug에 대입해준다.

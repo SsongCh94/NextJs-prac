@@ -5,6 +5,7 @@ export type Product = {
 	id: string;
 	name: string;
 	price: number;
+	image: string;
 };
 
 // 비동기함수로, products.json 파일에서 json객체를 읽어와 파싱하여 리턴해준다.
