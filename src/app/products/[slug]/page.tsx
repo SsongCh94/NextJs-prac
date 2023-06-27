@@ -1,6 +1,7 @@
-import NotFoundPage from '@/app/not-found';
 import { getProduct, getProducts } from '@/service/products';
+import { redirect } from 'next/navigation';
 import Image, { StaticImageData } from 'next/image';
+import GoProductsButton from '@/components/GoProductsButton';
 
 type Props = {
 	params: {
@@ -21,7 +22,7 @@ export default async function ProductPage({ params: { slug } }: Props) {
 	const product = await getProduct(slug);
 
 	if (!product) {
-		return NotFoundPage();
+		redirect('/products');
 	}
 
 	return (
@@ -33,6 +34,7 @@ export default async function ProductPage({ params: { slug } }: Props) {
 				width={300}
 				height={300}
 			/>
+			<GoProductsButton />
 		</>
 	);
 }
