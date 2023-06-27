@@ -1,6 +1,8 @@
 import NotFoundPage from '@/app/not-found';
 import { getProduct, getProducts } from '@/service/products';
 
+export const revalidate = 10;
+
 type Props = {
 	params: {
 		slug: string;
